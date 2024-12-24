@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/service-definition-3.xsd">
+
+    <service verb="create" noun="MoquiTraining" type="entity-auto">
+        <in-parameters>
+            <auto-parameters entity-name="org.moqui.training.MoquiTraining" include="nonpk"/>
+            <parameter name="trainingName" required="true"/>
+            <parameter name="trainingDate" required="true" format="yyyy-MM-dd"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="trainingId"/>
+        </out-parameters>
+        <actions>
+          <service-call name="create#MoquiTraining" in-map="context"/>
+        </actions>
+    </service>
+
+    <service verb="create" noun="MoquiTrainingInline">
+        <in-parameters>
+            <auto-parameters entity-name="org.moqui.training.MoquiTraining" include="nonpk"/>
+            <parameter name="trainingName" required="true"/>
+            <parameter name="trainingDate" required="true" format="yyyy-MM-dd"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="trainingId"/>
+        </out-parameters>
+        <actions>
+            <script>
+                if (true) {
+                ec.service.sync().name("create#MoquiTraining")
+                .parameters(context).call()
+
+                if (ec.message.hasError()) return
+                }
+                // make sure the last statement is not considered the return value
+                return;
+            </script>
+            <service-call name="create#MoquiTraining" in-map="context"/>
+        </actions>
+    </service>
+</services>
+        <!--org.moqui.training.MoquiTraining.MoquiTraining.create#MoquiTraining-->

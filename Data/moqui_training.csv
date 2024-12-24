@@ -1,0 +1,5 @@
+org.moqui.training,demo
+trainingId,trainingName,trainingDate,trainingPrice,trainingDuration
+4,"Java Basics",2024-12-23,299.999999,3
+5,"Advanced Java",2024-12-24,399.999999,5
+6,"Database Management",2024-12-25,249.999999,4
