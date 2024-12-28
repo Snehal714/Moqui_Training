@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/service-definition-3.xsd">
+
+    <service verb="create" noun="OrderHeader">
+        <in-parameters>
+            <parameter name="orderDate"/>
+            <parameter name="partyId"/>
+            <parameter name="shippingContactMechId"/>
+            <parameter name="billingContactMechId"/>
+            <parameter name="listOfItems" type="List">
+                <parameter name="orderItem" type="Map">
+                    <parameter name="productId"/>
+                    <parameter name="quantity"/>
+                    <parameter name="status"/>
+                </parameter>
+            </parameter>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="orderid"/>
+        </out-parameters>
+        <actions>
+            <service-call name="create#OrderHeader" in-map="context" out-map="mp"/>
+            <iterate list="listOfItems" entry="item">
+                <set field="item.orderid" value="${mp.orderid}"/>
+                <service-call name="create#OrderItem" in-map="item"/>
+            </iterate>
+        </actions>
+    </service>
+    
+    <service verb="create" noun="OrderItem" type="entity-auto">
+        <in-parameters>
+            <auto-parameters entity-name="OrderItem" include="nonpk"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="orderItemSeqId"/>
+        </out-parameters>
+    </service>
+
+    <service verb="create" noun="OrderHeader" type="entity-auto">
+        <in-parameters>
+            <auto-parameters entity-name="OrderItem" include="nonpk"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="orderItemSeqId"/>
+        </out-parameters>
+    </service>
+
+    <service verb="delete" noun="OrderItem">
+        <in-parameters>
+            <parameter name="orderid" required="true"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="header"/>
+            <parameter name="listOfItems" type="List"/>
+        </out-parameters>
+        <actions>
+            <entity-delete-by-condition entity-name="OrderItem">
+                <econdition field-name="orderid" from="context.orderid"/>
+            </entity-delete-by-condition>
+            <entity-delete-by-condition entity-name="OrderHeader">
+                <econdition field-name="orderid" from="context.orderid"/>
+            </entity-delete-by-condition>
+
+        </actions>
+    </service>
+
+    <service verb="find" noun="OrderHeader">
+        <in-parameters>
+            <parameter name="orderid" required="true"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="header"/>
+            <parameter name="listOfItems" type="List"/>
+        </out-parameters>
+        <actions>
+          <entity-find-one entity-name="OrderHeader" value-field="header"/>
+<!--            <entity-find entity-name="OrderItem" list="listOfItems"/>-->
+            <entity-find entity-name="OrderItem" list="listOfItems">
+                <econdition field-name="orderid" from="context.orderid"/>
+            </entity-find>
+        </actions>
+    </service>
+</services>
+
+

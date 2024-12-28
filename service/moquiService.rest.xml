@@ -59,46 +59,25 @@
         </id>
     </resource>
 
-<!--    <resource name="orders" require-authentication="anonymous-all">-->
-<!--        <method type="post">-->
-<!--            <entity name="OrderHeader" operation="create"/>-->
-<!--        </method>-->
-
-<!--        <id name ="orderid">-->
-<!--            <method type="get">-->
-<!--                <entity name="OrderItem" operation="one"/>-->
-<!--            </method>-->
-<!--            <method type="put">-->
-<!--                <entity name="OrderItem" operation="update"/>-->
-<!--            </method>-->
-<!--            <method type="delete">-->
-<!--                <entity name="OrderItem" operation="delete"/>-->
-<!--            </method>-->
-<!--            <method type="post">-->
-<!--                <entity name="OrderItem" operation="create"/>-->
-<!--            </method>-->
-<!--        </id>-->
-<!--    </resource>-->
-    <!-- Create Order -->
     <resource name="orders" require-authentication= "anonymous-all">
         <method type="post">
-            <entity name="OrderHeader" operation="create"/>
+            <service name="orderService.create#OrderHeader"/>
+        </method>
+
+        <method type="get">
+            <service name="orderService.find#OrderHeader" operation="list"/>
+        </method>
+
+        <!-- Delete Order -->
+        <method type="delete">
+            <service name="orderService.delete#OrderItem"/>
         </method>
 
         <!-- Retrieve Order Details -->
         <id name="orderid">
-            <method type="get">
-                <entity name="OrderHeader" operation="one"/>
-            </method>
-
             <!-- Update Order -->
             <method type="put">
                 <entity name="OrderHeader" operation="update"/>
-            </method>
-
-            <!-- Delete Order -->
-            <method type="delete">
-                <entity name="OrderHeader" operation="delete"/>
             </method>
 
             <!-- Add Order Item -->
