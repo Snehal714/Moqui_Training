@@ -8,7 +8,7 @@
             <parameter name="partyId"/>
             <parameter name="shippingContactMechId"/>
             <parameter name="billingContactMechId"/>
-            <parameter name="listOfItems" type="List">
+            <parameter name="listItems" type="List">
                 <parameter name="orderItem" type="Map">
                     <parameter name="productId"/>
                     <parameter name="quantity"/>
@@ -21,7 +21,7 @@
         </out-parameters>
         <actions>
             <service-call name="create#OrderHeader" in-map="context" out-map="mp"/>
-            <iterate list="listOfItems" entry="item">
+            <iterate list="listItems" entry="item">
                 <set field="item.orderid" value="${mp.orderid}"/>
                 <service-call name="create#OrderItem" in-map="item"/>
             </iterate>
@@ -52,7 +52,7 @@
         </in-parameters>
         <out-parameters>
             <parameter name="header"/>
-            <parameter name="listOfItems" type="List"/>
+            <parameter name="listItems" type="List"/>
         </out-parameters>
         <actions>
             <entity-delete-by-condition entity-name="OrderItem">
@@ -61,7 +61,6 @@
             <entity-delete-by-condition entity-name="OrderHeader">
                 <econdition field-name="orderid" from="context.orderid"/>
             </entity-delete-by-condition>
-
         </actions>
     </service>
 
@@ -71,12 +70,11 @@
         </in-parameters>
         <out-parameters>
             <parameter name="header"/>
-            <parameter name="listOfItems" type="List"/>
+            <parameter name="listItems" type="List"/>
         </out-parameters>
         <actions>
           <entity-find-one entity-name="OrderHeader" value-field="header"/>
-<!--            <entity-find entity-name="OrderItem" list="listOfItems"/>-->
-            <entity-find entity-name="OrderItem" list="listOfItems">
+            <entity-find entity-name="OrderItem" list="listItems">
                 <econdition field-name="orderid" from="context.orderid"/>
             </entity-find>
         </actions>

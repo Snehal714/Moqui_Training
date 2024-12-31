@@ -2,10 +2,7 @@
 <services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/service-definition-3.xsd">
 
     <service verb="store" noun="MoquiTrainingUpdate">
-        <description>Create or update MoquiTraining records based on trainingName or trainingId.</description>
-
         <in-parameters>
-
             <parameter name="trainingId" required="true"/>
             <parameter name="trainingName" required="true"/>
             <parameter name="trainingDate" required="true" />

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/entity-definition-3.xsd">
-    <!-- Party Entity -->
+
+
+
     <entity entity-name="Party"  package="org.moqui.training">
         <field name="partyId" type="id" is-pk="true" />
         <field name="partyType" type="text-medium" not-null="true" />
@@ -9,7 +11,9 @@
         <field name="lastName" type="text-medium" />
     </entity>
 
-    <!-- Contact_Mech Entity -->
+
+
+
     <entity entity-name="ContactMech" table-name="contact_mech" package="org.moqui.training">
         <field name="contactMechId" type="id"  is-pk="true" />
         <field name="partyId" type="id"/>
@@ -23,7 +27,7 @@
         </relationship>
     </entity>
 
-    <!-- Product Entity -->
+
     <entity entity-name="Product" table-name="product" package="org.moqui.training">
         <field name="productId" type="id"  is-pk="true" />
         <field name="productName" type="text-medium" not-null="true" />
@@ -31,7 +35,7 @@
         <field name="size" type="text-medium" />
     </entity>
 
-    <!-- Order_Header Entity -->
+
     <entity entity-name="OrderHeader" table-name="order_header" package="org.moqui.training">
         <field name="orderid" type="id"  is-pk="true" />
         <field name="orderDate" type="date" not-null="true" />
@@ -50,7 +54,10 @@
         </relationship>
     </entity>
 
-    <!-- Order_Item Entity -->
+
+
+
+
     <entity entity-name="OrderItem" table-name="order_item" package="org.moqui.training">
         <field name="orderItemSeqId" type="id"  is-pk="true" />
         <field name="orderid" type="id" />

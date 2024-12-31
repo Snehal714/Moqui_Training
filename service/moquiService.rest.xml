@@ -7,9 +7,6 @@
         <method type="post">
             <entity name="Party" operation="create"/>
         </method>
-        <method type="get">
-            <entity name="Party" operation="one"/>
-        </method>
         <id name ="partyId">
             <method type="get">
                 <entity name="Party" operation="one"/>
@@ -43,9 +40,6 @@
         <method type="post">
             <entity name="Product" operation="create"/>
         </method>
-        <method type="get">
-            <entity name="Product" operation="one"/>
-        </method>
         <id name ="productId">
             <method type="get">
                 <entity name="Product" operation="one"/>
@@ -68,27 +62,14 @@
             <service name="orderService.find#OrderHeader" operation="list"/>
         </method>
 
-        <!-- Delete Order -->
         <method type="delete">
             <service name="orderService.delete#OrderItem"/>
         </method>
 
-        <!-- Retrieve Order Details -->
         <id name="orderid">
-            <!-- Update Order -->
             <method type="put">
                 <entity name="OrderHeader" operation="update"/>
             </method>
-
-            <!-- Add Order Item -->
-            <resource name="items">
-                <method type="post">
-                    <entity name="OrderItem" operation="create"/>
-                </method>
-            </resource>
         </id>
     </resource>
-
-
-
 </resource>
